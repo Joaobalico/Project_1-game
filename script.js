@@ -5,6 +5,47 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 
+
+const img = new Image();
+img.src = 'https://opengameart.org/sites/default/files/2_21.png';
+
+const backgroundImage = {
+  img: img,
+  x: 0,
+  y: 0,
+  width: canvas.width,
+  height: canvas.height,
+//   speed: -1,
+
+ /*  move: function() {
+    this.x += this.speed;
+    this.x %= canvas.width;
+  }, */
+
+  draw: function() {
+    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    /* if (this.speed < 0) {
+      ctx.drawImage(this.img, this.x + canvas.width, 0);
+    } else {
+      ctx.drawImage(this.img, this.x - this.img.width, 0);
+    } */
+  },
+};
+
+/* function updateCanvas() {
+  /* backgroundImage.move();
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   backgroundImage.draw();
+
+  requestAnimationFrame(updateCanvas);
+} */
+
+// start calling updateCanvas once the image is loaded
+/* img.onload = updateCanvas; */
+
+
+
 const gravity = 1.5;
 class Player {
     constructor () {
@@ -21,7 +62,7 @@ class Player {
     }
 
     draw() {
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'blue';
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
     }
 
@@ -40,23 +81,24 @@ class Player {
 }
 
 class Platform {
-    constructor() {
+    constructor({x, y}) {
         this.position = {
-            x: 200,
-            y: 100
+            x: x,
+            y: y
         }
         this.width = 200;
         this.height = 20;
     }
 
     draw() {
-        ctx.fillStyle = 'blue'
+        ctx.fillStyle = 'red'
         ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
     }
 }
 
 const player = new Player();
-const platform = new Platform();
+const platforms = [new Platform({x: 200, y: 100}), new Platform({x: 500, y:200})];
+
 const keys = {
     right: {
         pressed: false
@@ -66,23 +108,46 @@ const keys = {
     }
 }
 
+let scrollOffset = 0;
+
 function animate () {
     requestAnimationFrame(animate);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    backgroundImage.draw();
     player.update();
-    platform.draw();
+    platforms.forEach( (platform) => {
+        platform.position.x -= 5;
+        platform.draw();
+    })
 
-    if (keys.right.pressed) {
+    if (keys.right.pressed && player.position.x < 400) {
         player.speed.x = 5
-    } else if (keys.left.pressed) {
+    } else if (keys.left.pressed && player.position.x > 100) {
         player.speed.x = -5
     } else {
         player.speed.x = 0
+
+        if (keys.right.pressed) {
+            scrollOffset += 5;
+            platforms.forEach(platform => {
+                platform.position.x -= 5;
+            })
+        } else if (keys.left.pressed) {
+            scrollOffset -= 5;
+            platforms.forEach(platform => {
+                platform.position.x += 5;
+            })
+        }
     }
 
-    if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.speed.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
-        player.speed.y = 0; 
-    }
+    platforms.forEach(platform => {
+            platform.position.x -= 5;
+
+        //Platform colision detection
+        if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.speed.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
+            player.speed.y = 0; 
+        }
+    });
 }
 
 animate()
@@ -111,15 +176,14 @@ window.addEventListener('keyup', (e) => {
     switch (e.code) {
         case 'KeyA':
             console.log('left')
-            keys.left.pressed= false
-
+            keys.left.pressed= false;
         break;
         case 'KeyS':
             console.log('down')
         break;
         case 'KeyD':
             console.log('right')
-            keys.right.pressed= false
+            keys.right.pressed= false;
         break;
         case 'KeyW':
             console.log('up')
