@@ -5,7 +5,7 @@ canvas.width = 1200;
 canvas.height = 600;
 
 
-
+/* 
 const img = new Image();
 img.src = 'https://opengameart.org/sites/default/files/2_21.png';
 
@@ -15,11 +15,34 @@ const backgroundImage = {
   y: 0,
   width: canvas.width,
   height: canvas.height,
+//   speed: -1,
+
+ /*  move: function() {
+    this.x += this.speed;
+    this.x %= canvas.width;
+  }, 
 
   draw: function() {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    /* if (this.speed < 0) {
+      ctx.drawImage(this.img, this.x + canvas.width, 0);
+    } else {
+      ctx.drawImage(this.img, this.x - this.img.width, 0);
+    } 
   },
 };
+
+/* function updateCanvas() {
+  /* backgroundImage.move();
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   backgroundImage.draw();
+
+  requestAnimationFrame(updateCanvas);
+} */
+
+// start calling updateCanvas once the image is loaded
+/* img.onload = updateCanvas; */ 
 
 
 
@@ -93,15 +116,19 @@ class Background {
     }
 }
 
+function createImage(imageSrc) {
+    const image = new Image();
+    image.src = 'https://tinyurl.com/5mhwjemp';
+    return image;
+}
 
-const image = new Image();
-image.src = 'https://w7.pngwing.com/pngs/108/647/png-transparent-opengameart-org-concept-art-music-two-dimensional-space-platform-miscellaneous-texture-rectangle.png';
+const platformImage = createImage('https://tinyurl.com/5mhwjemp')
 
 
 const player = new Player();
-const platforms = [new Platform({x: 0, y: 400, image}), new Platform({x: image.width, y:400, image})];
+const platforms = [new Platform({x: 0, y: 400, image: platformImage}), new Platform({x: image.width + 1, y:400, image: platformImage})];
 const background = [
-    new Background({x: 0, y: 0, image})
+    new Background({x: 0, y: 0, image: createImage('https://tinyurl.com/2p862w23')})
 ];
 
 
@@ -120,7 +147,7 @@ function animate () {
     requestAnimationFrame(animate);
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    backgroundImage.draw();
+    // backgroundImage.draw();
     platforms.forEach( (platform) => {
         platform.position.x -= 5;
         platform.draw();
