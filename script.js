@@ -128,8 +128,10 @@ function animate () {
     player.update();
 
     if (keys.right.pressed && player.position.x < 400) {
+        backgroundImage.x -= 3
         player.speed.x = 5
     } else if (keys.left.pressed && player.position.x > 100) {
+        backgroundImage.x += 3
         player.speed.x = -5
     } else {
         player.speed.x = 0
