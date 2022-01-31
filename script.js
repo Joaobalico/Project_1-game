@@ -50,8 +50,6 @@ class Player {
 
         if (this.position.y + this.height + this.speed.y <= canvas.height) {
             this.speed.y += gravity;
-        } else {
-            this.speed.y = 0;
         }
         
     }
@@ -99,7 +97,7 @@ image.src = 'https://w7.pngwing.com/pngs/108/647/png-transparent-opengameart-org
 
 
 const player = new Player();
-const platforms = [new Platform({x: 0, y: 400, image}), new Platform({x: image.width, y:400, image})];
+const platforms = [new Platform({x: 0, y: 400, image}), new Platform({x: image.width, y:400, image}), new Platform({x: image.width * 2 + 100, y:400, image})];
 const background = [
     new Background({x: 0, y: 0, image})
 ];
@@ -160,8 +158,14 @@ function animate () {
         }
     });
 
+    //Win condition
     if (scrollOffset > 2000) {
         console.log('You win')
+    }
+
+    //Lose condition
+    if(player.position.y > canvas.height) {
+        console.log('You lose')
     }
 }
 
