@@ -1,11 +1,11 @@
 const canvas = document.getElementById('canvas');
 ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = 1200;
+canvas.height = 600;
 
 
-
+/* 
 const img = new Image();
 img.src = 'https://opengameart.org/sites/default/files/2_21.png';
 
@@ -20,7 +20,7 @@ const backgroundImage = {
  /*  move: function() {
     this.x += this.speed;
     this.x %= canvas.width;
-  }, */
+  }, 
 
   draw: function() {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
@@ -28,7 +28,7 @@ const backgroundImage = {
       ctx.drawImage(this.img, this.x + canvas.width, 0);
     } else {
       ctx.drawImage(this.img, this.x - this.img.width, 0);
-    } */
+    } 
   },
 };
 
@@ -42,7 +42,7 @@ const backgroundImage = {
 } */
 
 // start calling updateCanvas once the image is loaded
-/* img.onload = updateCanvas; */
+/* img.onload = updateCanvas; */ 
 
 
 
@@ -86,18 +86,51 @@ class Platform {
             x: x,
             y: y
         }
-        this.width = 200;
-        this.height = 20;
+
+        this.image = image;
+        this.width = image.width;
+        this.height = image.height;
+
     }
 
     draw() {
-        ctx.fillStyle = 'red'
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height)
+        ctx.drawImage(this.image, this.position.x, this.position.y);
     }
 }
 
+class Background {
+    constructor({x, y}) {
+        this.position = {
+            x: x,
+            y: y
+        }
+
+        this.image = image;
+        this.width = image.width;
+        this.height = image.height;
+
+    }
+
+    draw() {
+        ctx.drawImage(this.image, this.position.x, this.position.y);
+    }
+}
+
+function createImage(imageSrc) {
+    const image = new Image();
+    image.src = 'https://tinyurl.com/5mhwjemp';
+    return image;
+}
+
+const platformImage = createImage('https://tinyurl.com/5mhwjemp')
+
+
 const player = new Player();
-const platforms = [new Platform({x: 200, y: 100}), new Platform({x: 500, y:200})];
+const platforms = [new Platform({x: 0, y: 400, image: platformImage}), new Platform({x: image.width + 1, y:400, image: platformImage})];
+const background = [
+    new Background({x: 0, y: 0, image: createImage('https://tinyurl.com/2p862w23')})
+];
+
 
 const keys = {
     right: {
@@ -112,13 +145,14 @@ let scrollOffset = 0;
 
 function animate () {
     requestAnimationFrame(animate);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    backgroundImage.draw();
-    player.update();
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // backgroundImage.draw();
     platforms.forEach( (platform) => {
         platform.position.x -= 5;
         platform.draw();
     })
+    player.update();
 
     if (keys.right.pressed && player.position.x < 400) {
         player.speed.x = 5
@@ -129,11 +163,13 @@ function animate () {
 
         if (keys.right.pressed) {
             scrollOffset += 5;
+
             platforms.forEach(platform => {
                 platform.position.x -= 5;
             })
         } else if (keys.left.pressed) {
             scrollOffset -= 5;
+
             platforms.forEach(platform => {
                 platform.position.x += 5;
             })
@@ -141,13 +177,17 @@ function animate () {
     }
 
     platforms.forEach(platform => {
-            platform.position.x -= 5;
+            platform.position.x += 5;
 
         //Platform colision detection
         if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.speed.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
             player.speed.y = 0; 
         }
     });
+
+    if (scrollOffset > 2000) {
+        console.log('You win')
+    }
 }
 
 animate()
