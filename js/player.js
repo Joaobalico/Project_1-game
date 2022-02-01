@@ -8,13 +8,24 @@ class Player {
       x: 0,
       y: 1,
     };
-    this.width = 30;
-    this.height = 30;
-  }
+    this.width = 66;
+    this.height = 150;
 
+    this.image = createImage(megaman);
+  }
+/* STOPED HERE */
   draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
+    ctx.drawImage(
+      this.image,
+      430,
+      0,
+      177,
+      400,
+      this.position.x,
+      this.position.y,
+      this.width,
+      this.height
+    );
   }
 
   update() {

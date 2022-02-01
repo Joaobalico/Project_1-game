@@ -1,7 +1,8 @@
-const platform = "./img/platform.png";
-const hills = "./img/hills.png";
-const backgroundImg = "./img/background.png";
-const platformSmallTall = "./img/platformSmallTall.png";
+const platform = "../img/platform.png";
+const hills = "../img/hills.png";
+const backgroundImg = "../img/background.png";
+const platformSmallTall = "../img/platformSmallTall.png";
+const megaman = "../img/mega-man-sprite-png.png"
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -107,7 +108,10 @@ function animate() {
 
   if (keys.right.pressed && player.position.x < 400) {
     player.speed.x = 10;
-  } else if (keys.left.pressed && player.position.x > 100) {
+  } else if (
+    (keys.left.pressed && player.position.x > 100) ||
+    (keys.left.pressed && scrollOffset === 0 && player.position.x > 0)
+  ) {
     player.speed.x = -10;
   } else {
     player.speed.x = 0;
@@ -120,7 +124,7 @@ function animate() {
       animatedBackground.forEach((animatedObject) => {
         animatedObject.position.x -= 6;
       });
-    } else if (keys.left.pressed) {
+    } else if (keys.left.pressed && scrollOffset > 0) {
       scrollOffset -= 10;
 
       platforms.forEach((platform) => {
@@ -149,7 +153,7 @@ function animate() {
 
   //Win condition
   if (scrollOffset > 3155) {
-    console.log('win')
+    console.log("You win!");
   }
 
   //Lose condition
