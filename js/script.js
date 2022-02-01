@@ -1,7 +1,7 @@
-const platform = "../img/platform.png";
-const smallPlatform = "../img/smallPlatform.png";
-const backgroundImg = '../img/Parallax-background.png';
-const greenChar = "../img/Preview-Green-Cap-Character-16x18.png"
+const platform = "../docs/assets/images/platform.png";
+const smallPlatform = "../docs/assets/images/smallPlatform.png";
+const backgroundImg = '../docs/assets/images/Parallax-background.png';
+const greenChar = "../docs/assets/images/Preview-Green-Cap-Character-16x18.png"
 
 
 const canvas = document.getElementById("canvas");
