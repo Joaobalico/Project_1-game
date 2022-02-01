@@ -1,4 +1,4 @@
-class Background {
+class ScrollingBackground {
     constructor({ x, y, image }) {
       this.position = {
         x: x,
@@ -9,9 +9,10 @@ class Background {
       this.image = image;
       this.width = 1020;
       this.height = 500;
+      this.image = createImage(backgroundImg);
     }
   
     draw() {
-      this.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+      ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 };
