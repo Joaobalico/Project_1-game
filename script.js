@@ -1,211 +1,140 @@
-const canvas = document.getElementById('canvas');
-ctx = canvas.getContext('2d');
+const platform = "./img/platform.png";
+const hills = "./img/hills.png";
+const backgroundImg = "./img/background.png";
+const platformSmallTall = "./img/platformSmallTall.png";
 
-canvas.width = 1200;
-canvas.height = 600;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = 1020;
+canvas.height = 500;
+
+const gravity = 1.5;
+
+const image = new Image();
+image.src = platform;
 
 
+let player = new Player();
+let platforms = [];
+let background = [];
 
-const img = new Image();
-img.src = 'https://opengameart.org/sites/default/files/2_21.png';
-
-const backgroundImage = {
-  img: img,
-  x: 0,
-  y: 0,
-  width: canvas.width,
-  height: canvas.height,
-
-  draw: function() {
-    ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+const keys = {
+  right: {
+    pressed: false,
+  },
+  left: {
+    pressed: false,
+  },
+  up: {
+    pressed: false,
   },
 };
 
-
-
-const gravity = 1.5;
-class Player {
-    constructor () {
-        this.position = {
-            x: 100,
-            y: 100
-        };
-        this.speed = {
-            x: 0,
-            y: 1
-        }
-        this.width = 30;
-        this.height = 30;
-    }
-
-    draw() {
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
-    }
-
-    update() {
-        this.draw();
-        this.position.y += this.speed.y;
-        this.position.x += this.speed.x;
-
-        if (this.position.y + this.height + this.speed.y <= canvas.height) {
-            this.speed.y += gravity;
-        }
-        
-    }
-}
-
-class Platform {
-    constructor({x, y}) {
-        this.position = {
-            x: x,
-            y: y
-        }
-
-        this.image = image;
-        this.width = image.width;
-        this.height = image.height;
-
-    }
-
-    draw() {
-        ctx.drawImage(this.image, this.position.x, this.position.y);
-    }
-}
-
-class Background {
-    constructor({x, y}) {
-        this.position = {
-            x: x,
-            y: y
-        }
-
-        this.image = image;
-        this.width = image.width;
-        this.height = image.height;
-
-    }
-
-    draw() {
-        ctx.drawImage(this.image, this.position.x, this.position.y);
-    }
-}
-
-
-const image = new Image();
-image.src = 'https://w7.pngwing.com/pngs/108/647/png-transparent-opengameart-org-concept-art-music-two-dimensional-space-platform-miscellaneous-texture-rectangle.png';
-
-
-const player = new Player();
-const platforms = [new Platform({x: 0, y: 400, image}), new Platform({x: image.width, y:400, image}), new Platform({x: image.width * 2 + 100, y:400, image})];
-const background = [
-    new Background({x: 0, y: 0, image})
-];
-
-
-const keys = {
-    right: {
-        pressed: false
-    },
-    left: {
-        pressed: false
-    }
-}
-
 let scrollOffset = 0;
 
-function animate () {
-    requestAnimationFrame(animate);
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    backgroundImage.draw();
-    platforms.forEach( (platform) => {
-        platform.position.x -= 5;
-        platform.draw();
-    })
-    player.update();
+function init() {
+  player = new Player();
+  platforms = [
+    new Platform({ x: 0, y: 375, image }),
+    new Platform({ x: image.width - 2, y: 375, image }),
+    new Platform({ x: image.width * 2 + 100, y: 375, image }),
+    new Platform({ x: image.width * 3 + 300, y: 375, image }),
+    new Platform({ x: image.width * 4 + 300, y: 375, image }),
+    new Platform({ x: image.width * 4 + 300 - 2, y: 375, image }),
+  ];
+//   background = [new Background({ x: 0, y: 0, image })];
 
-    if (keys.right.pressed && player.position.x < 400) {
-        backgroundImage.x -= 3
-        player.speed.x = 5
-    } else if (keys.left.pressed && player.position.x > 100) {
-        backgroundImage.x += 3
-        player.speed.x = -5
-    } else {
-        player.speed.x = 0
-
-        if (keys.right.pressed) {
-            scrollOffset += 5;
-
-            platforms.forEach(platform => {
-                platform.position.x -= 5;
-            })
-        } else if (keys.left.pressed) {
-            scrollOffset -= 5;
-
-            platforms.forEach(platform => {
-                platform.position.x += 5;
-            })
-        }
-    }
-
-    platforms.forEach(platform => {
-            platform.position.x += 5;
-
-        //Platform colision detection
-        if (player.position.y + player.height <= platform.position.y && player.position.y + player.height + player.speed.y >= platform.position.y && player.position.x + player.width >= platform.position.x && player.position.x <= platform.position.x + platform.width) {
-            player.speed.y = 0; 
-        }
-    });
-
-    //Win condition
-    if (scrollOffset > 2000) {
-        console.log('You win')
-    }
-
-    //Lose condition
-    if(player.position.y > canvas.height) {
-        console.log('You lose')
-    }
+  scrollOffset = 0;
 }
 
-animate()
+function animate() {
+  requestAnimationFrame(animate);
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  //   backgroundImage.draw();
+  platforms.forEach((platform) => {
+    platform.position.x -= 5;
+    platform.draw();
+  });
+  player.update();
 
-window.addEventListener('keydown', (e) => {
-    switch (e.code) {
-        case 'KeyA':
-            console.log('left')
-            keys.left.pressed= true
-         break;
-        case 'KeyS':
-            console.log('down')
-        break;
-        case 'KeyD':
-            console.log('right')
-            keys.right.pressed= true
-        break;
-        case 'KeyW':
-            console.log('up')
-            player.speed.y -= 20;
-        break;
-    }
-})
+  if (keys.right.pressed && player.position.x < 400) {
+    // backgroundImage.x -= 6;
+    player.speed.x = 10;
+  } else if (keys.left.pressed && player.position.x > 100) {
+    // backgroundImage.x += 6;
+    player.speed.x = -10;
+  } else {
+    player.speed.x = 0;
 
-window.addEventListener('keyup', (e) => {
-    switch (e.code) {
-        case 'KeyA':
-            console.log('left')
-            keys.left.pressed= false;
-        break;
-        case 'KeyS':
-            console.log('down')
-        break;
-        case 'KeyD':
-            console.log('right')
-            keys.right.pressed= false;
-        break;
-        case 'KeyW':
-            console.log('up')
-        break;
+    if (keys.right.pressed) {
+      scrollOffset += 10;
+
+      platforms.forEach((platform) => {
+        platform.position.x -= 10;
+      });
+    } else if (keys.left.pressed) {
+      scrollOffset -= 10;
+
+      platforms.forEach((platform) => {
+        platform.position.x += 10;
+      });
     }
-})
+  }
+
+  platforms.forEach((platform) => {
+    platform.position.x += 5;
+
+    //Platform colision detection
+    if (
+      player.position.y + player.height <= platform.position.y &&
+      player.position.y + player.height + player.speed.y >=
+        platform.position.y &&
+      player.position.x + player.width >= platform.position.x &&
+      player.position.x <= platform.position.x + platform.width
+    ) {
+      player.speed.y = 0;
+    }
+  });
+
+  //Win condition
+  if (scrollOffset > 2000) {
+  }
+
+  //Lose condition
+  if (player.position.y > canvas.height) {
+    init();
+  }
+}
+
+init();
+animate();
+
+window.addEventListener("keydown", (e) => {
+  switch (e.code) {
+    case "KeyA": //left
+      keys.left.pressed = true;
+      break;
+    case "KeyD": //right
+      keys.right.pressed = true;
+      break;
+    case "KeyW": //up
+      player.speed.y -= 20;
+      break;
+  }
+});
+
+window.addEventListener("keyup", (e) => {
+  switch (e.code) {
+    case "KeyA": //left
+      keys.left.pressed = false;
+      break;
+    case "KeyD": //right
+      keys.right.pressed = false;
+      break;
+    case "KeyW": //up
+        keys.up.pressed = false;
+        break;
+  }
+});
