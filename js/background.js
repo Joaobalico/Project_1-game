@@ -7,8 +7,8 @@ class ScrollingBackground {
       };
   
       this.image = image;
-      this.width = 1020;
-      this.height = 500;
+      this.width = canvas.width;
+      this.height = canvas.height;
       this.image = createImage(backgroundImg);
     }
   

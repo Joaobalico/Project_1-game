@@ -21,12 +21,13 @@ const keys = {
   },
   up: {
     pressed: false,
+    
   },
 };
 
 let scrollOffset = 0;
 
-canvas.width = 1020;
+canvas.width = 900;
 canvas.height = 500;
 
 function createImage(imageSrc) {
@@ -45,6 +46,16 @@ function init() {
     new Platform({
       x: platformImage.width * 4 + platformImage.width + 8,
       y: 250,
+      image: createImage(smallPlatform),
+    }),
+    new Platform({
+      x: platformImage.width * 14 + 145,
+      y: 250,
+      image: createImage(smallPlatform),
+    }),
+    new Platform({
+      x: platformImage.width * 16.75,
+      y: 300,
       image: createImage(smallPlatform),
     }),
     new Platform({ x: 0, y: 400, image: platformImage }),
@@ -74,6 +85,46 @@ function init() {
       y: 400,
       image: platformImage,
     }),
+    new Platform({
+      x: platformImage.width * 6 + 645 - 3,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 7 + 645 - 4,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 8 + 850,
+      y: 250,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 9 + 1000,
+      y: 90,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 12.25,
+      y: 70,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 13.75,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 15.10,
+      y: 100,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 17.60,
+      y: 150,
+      image: platformImage,
+    }),
   ];
 
   animatedBackground = [
@@ -83,12 +134,42 @@ function init() {
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 1019,
+      x: 899,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 1019 * 2,
+      x: 899 * 2,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 3,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 4,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 5,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 6,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 7,
+      y: 0,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 899 * 8,
       y: 0,
       image: createImage(backgroundImg),
     }),
@@ -158,8 +239,9 @@ function animate() {
   });
 
   //Win condition
-  if (scrollOffset > 3155) {
-    console.log("You win!");
+  if (scrollOffset > 10000) {
+    alert('You won!');
+    init();
   }
 
   //Lose condition
@@ -180,10 +262,11 @@ window.addEventListener("keydown", (e) => {
       keys.right.pressed = true;
       break;
     case "KeyW": //up
-      player.speed.y -= 24;
+      player.speed.y -= 22;
       break;
   }
 });
+
 
 window.addEventListener("keyup", (e) => {
   switch (e.code) {
