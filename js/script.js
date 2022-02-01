@@ -6,16 +6,8 @@ const platformSmallTall = "./img/platformSmallTall.png";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = 1020;
-canvas.height = 500;
-
 const gravity = 1.5;
 
-const image = new Image();
-image.src = platform;
-
-
-let player = new Player();
 let platforms = [];
 let background = [];
 
@@ -33,17 +25,68 @@ const keys = {
 
 let scrollOffset = 0;
 
+canvas.width = 1020;
+canvas.height = 500;
+
+function createImage(imageSrc) {
+  const image = new Image();
+  image.src = imageSrc;
+  return image;
+}
+
+let player = new Player();
+let animatedBackground = [];
+
 function init() {
+  const platformImage = createImage(platform);
   player = new Player();
   platforms = [
-    new Platform({ x: 0, y: 375, image }),
-    new Platform({ x: image.width - 2, y: 375, image }),
-    new Platform({ x: image.width * 2 + 100, y: 375, image }),
-    new Platform({ x: image.width * 3 + 300, y: 375, image }),
-    new Platform({ x: image.width * 4 + 300, y: 375, image }),
-    new Platform({ x: image.width * 4 + 300 - 2, y: 375, image }),
+    new Platform({
+      x: platformImage.width * 4 + platformImage.width + 8,
+      y: 250,
+      image: createImage(platformSmallTall),
+    }),
+    new Platform({ x: 0, y: 400, image: platformImage }),
+    new Platform({ x: platformImage.width - 2, y: 400, image: platformImage }),
+    new Platform({
+      x: platformImage.width * 2 + 100,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 3 + 300,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 4 + 300,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 4 + 300 - 2,
+      y: 400,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 5 + 645 - 2,
+      y: 400,
+      image: platformImage,
+    }),
   ];
-//   background = [new Background({ x: 0, y: 0, image })];
+
+  animatedBackground = [
+    new ScrollingBackground({
+      x: -1,
+      y: -1,
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: -1,
+      y: -1,
+      image: createImage(hills),
+    }),
+  ];
 
   scrollOffset = 0;
 }
@@ -52,7 +95,10 @@ function animate() {
   requestAnimationFrame(animate);
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
-  //   backgroundImage.draw();
+
+  animatedBackground.forEach((animatedObject) => {
+    animatedObject.draw();
+  });
   platforms.forEach((platform) => {
     platform.position.x -= 5;
     platform.draw();
@@ -60,25 +106,28 @@ function animate() {
   player.update();
 
   if (keys.right.pressed && player.position.x < 400) {
-    // backgroundImage.x -= 6;
     player.speed.x = 10;
   } else if (keys.left.pressed && player.position.x > 100) {
-    // backgroundImage.x += 6;
     player.speed.x = -10;
   } else {
     player.speed.x = 0;
 
     if (keys.right.pressed) {
       scrollOffset += 10;
-
       platforms.forEach((platform) => {
         platform.position.x -= 10;
+      });
+      animatedBackground.forEach((animatedObject) => {
+        animatedObject.position.x -= 6;
       });
     } else if (keys.left.pressed) {
       scrollOffset -= 10;
 
       platforms.forEach((platform) => {
         platform.position.x += 10;
+      });
+      animatedBackground.forEach((animatedObject) => {
+        animatedObject.position.x += 6;
       });
     }
   }
@@ -99,7 +148,8 @@ function animate() {
   });
 
   //Win condition
-  if (scrollOffset > 2000) {
+  if (scrollOffset > 3155) {
+    console.log('win')
   }
 
   //Lose condition
@@ -120,7 +170,7 @@ window.addEventListener("keydown", (e) => {
       keys.right.pressed = true;
       break;
     case "KeyW": //up
-      player.speed.y -= 20;
+      player.speed.y -= 22;
       break;
   }
 });
@@ -133,8 +183,5 @@ window.addEventListener("keyup", (e) => {
     case "KeyD": //right
       keys.right.pressed = false;
       break;
-    case "KeyW": //up
-        keys.up.pressed = false;
-        break;
   }
 });
