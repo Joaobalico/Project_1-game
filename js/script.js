@@ -37,6 +37,7 @@ function createImage(imageSrc) {
 
 let player = new Player();
 let animatedBackground = [];
+let platforms = [];
 
 function init() {
   const platformImage = createImage(platform);
