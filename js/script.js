@@ -1,8 +1,8 @@
 const platform = "../img/platform.png";
-const hills = "../img/hills.png";
-const backgroundImg = "../img/background.png";
-const platformSmallTall = "../img/platformSmallTall.png";
-const megaman = "../img/mega-man-sprite-png.png"
+const smallPlatform = "../img/smallPlatform.png";
+const backgroundImg = '../img/Parallax-background.png';
+const greenChar = "../img/Preview-Green-Cap-Character-16x18.png"
+
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -45,7 +45,7 @@ function init() {
     new Platform({
       x: platformImage.width * 4 + platformImage.width + 8,
       y: 250,
-      image: createImage(platformSmallTall),
+      image: createImage(smallPlatform),
     }),
     new Platform({ x: 0, y: 400, image: platformImage }),
     new Platform({ x: platformImage.width - 2, y: 400, image: platformImage }),
@@ -83,9 +83,14 @@ function init() {
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: -1,
+      x: 1019,
       y: -1,
-      image: createImage(hills),
+      image: createImage(backgroundImg),
+    }),
+    new ScrollingBackground({
+      x: 1019 * 2,
+      y: -1,
+      image: createImage(backgroundImg),
     }),
   ];
 
@@ -106,6 +111,7 @@ function animate() {
   });
   player.update();
 
+  //PLayer movements and limits
   if (keys.right.pressed && player.position.x < 400) {
     player.speed.x = 10;
   } else if (
@@ -174,7 +180,7 @@ window.addEventListener("keydown", (e) => {
       keys.right.pressed = true;
       break;
     case "KeyW": //up
-      player.speed.y -= 22;
+      player.speed.y -= 24;
       break;
   }
 });

@@ -7,11 +7,11 @@ class ScrollingBackground {
       };
   
       this.image = image;
-      this.width = image.width;
-      this.height = image.height;
+      this.width = 1020;
+      this.height = 500;
     }
   
     draw() {
-      ctx.drawImage(this.image, this.position.x, this.position.y);
+      ctx.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 };

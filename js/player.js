@@ -8,19 +8,18 @@ class Player {
       x: 0,
       y: 1,
     };
-    this.width = 66;
-    this.height = 150;
-
-    this.image = createImage(megaman);
+    this.width = 70;
+    this.height = 70;
+    this.image = createImage(greenChar);
   }
-/* STOPED HERE */
+
   draw() {
     ctx.drawImage(
       this.image,
-      430,
       0,
-      177,
-      400,
+      0,
+      50,
+      50,
       this.position.x,
       this.position.y,
       this.width,
@@ -38,3 +37,52 @@ class Player {
     }
   }
 }
+
+class Platform {
+  constructor({ x, y, image }) {
+    this.position = {
+      x: x,
+      y: y,
+      image: image,
+    };
+
+    this.image = image;
+    this.width = image.width;
+    this.height = image.height;
+  }
+
+  draw() {
+    ctx.drawImage(this.image, this.position.x, this.position.y);
+  }
+}
+
+class GenericObject {
+  constructor({ x, y, image }) {
+    this.position = {
+      x: x,
+      y: y,
+      image: image,
+    };
+
+    this.image = image;
+    this.width = image.width;
+    this.height = image.height;
+  }
+
+  draw() {
+    ctx.drawImage(this.image, this.position.x, this.position.y);
+  }
+}
+
+const genericObjects = [
+  new GenericObject({
+    x: -1,
+    y: -1,
+    image: createImage(backgroundImg),
+  }),
+  new GenericObject({
+    x: -1,
+    y: -1,
+    image: createImage(hills),
+  }),
+];
