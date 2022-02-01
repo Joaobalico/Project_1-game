@@ -1,7 +1,7 @@
-const platform = "../docs/assets/images/platform.png";
-const smallPlatform = "../docs/assets/images/smallPlatform.png";
-const backgroundImg = '../docs/assets/images/Parallax-background.png';
-const greenChar = "../docs/assets/images/Preview-Green-Cap-Character-16x18.png"
+const platform = "../docs/assets/platform.png";
+const smallPlatform = "../docs/assets/smallPlatform.png";
+const backgroundImg = '../docs/assets/Parallax-background.png';
+const greenChar = "../docs/assets/Preview-Green-Cap-Character-16x18.png"
 
 
 const canvas = document.getElementById("canvas");
@@ -79,17 +79,17 @@ function init() {
   animatedBackground = [
     new ScrollingBackground({
       x: -1,
-      y: -1,
+      y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
       x: 1019,
-      y: -1,
+      y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
       x: 1019 * 2,
-      y: -1,
+      y: 0,
       image: createImage(backgroundImg),
     }),
   ];
