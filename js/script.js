@@ -77,17 +77,17 @@ function init() {
   ];
 
   animatedBackground = [
-    new ScrollingBackground({
+    new Background({
       x: -1,
       y: 0,
       image: createImage(backgroundImg),
     }),
-    new ScrollingBackground({
+    new Background({
       x: 1019,
       y: 0,
       image: createImage(backgroundImg),
     }),
-    new ScrollingBackground({
+    new Background({
       x: 1019 * 2,
       y: 0,
       image: createImage(backgroundImg),
@@ -102,9 +102,9 @@ function animate() {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  animatedBackground.forEach((animatedObject) => {
+  /* animatedBackground.forEach((animatedObject) => {
     animatedObject.draw();
-  });
+  }); */
   platforms.forEach((platform) => {
     platform.position.x -= 5;
     platform.draw();
@@ -127,18 +127,18 @@ function animate() {
       platforms.forEach((platform) => {
         platform.position.x -= 10;
       });
-      animatedBackground.forEach((animatedObject) => {
+      /* animatedBackground.forEach((animatedObject) => {
         animatedObject.position.x -= 6;
-      });
+      }); */
     } else if (keys.left.pressed && scrollOffset > 0) {
       scrollOffset -= 10;
 
       platforms.forEach((platform) => {
         platform.position.x += 10;
       });
-      animatedBackground.forEach((animatedObject) => {
+      /* animatedBackground.forEach((animatedObject) => {
         animatedObject.position.x += 6;
-      });
+      }); */
     }
   }
 
