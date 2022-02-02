@@ -28,4 +28,9 @@ body button {
     margin-bottom: 20px;
     margin-right: 10px;
     margin-left: 30px;
-  }
+}
+
+#win-screen {
+    height: 500px;
+    background-color: red;
+}
