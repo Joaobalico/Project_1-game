@@ -162,48 +162,53 @@ function init() {
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899,
+      x: 1025,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 2,
+      x: 1025 * 2,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 3,
+      x: 1025 * 3,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 4,
+      x: 1025 * 4,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 5,
+      x: 1025 * 5,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 6,
+      x: 1025 * 6,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 7,
+      x: 1025 * 7,
       y: 0,
       image: createImage(backgroundImg),
     }),
     new ScrollingBackground({
-      x: 899 * 8,
+      x: 1025 * 8,
       y: 0,
       image: createImage(backgroundImg),
     }),
   ];
 
   scrollOffset = 0;
+}
+
+function reload () {
+  init();
+  location.reload()
 }
 
 function animate() {
@@ -269,7 +274,7 @@ function animate() {
   //Win condition
   if (scrollOffset > 10000) {
     alert("You won!");
-    init()
+    reload()
   }
 
   //Lose condition
