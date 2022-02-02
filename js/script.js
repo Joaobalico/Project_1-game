@@ -1,9 +1,9 @@
-const test = document.getElementById("start-button");
+const startButton = document.getElementById("start-button");
 
 window.onload = () => {
-  test.onclick = () => {
+  startButton.onclick = () => {
     init();
-    test.remove();
+    startButton.remove();
     window.addEventListener("keydown", (e) => {
       switch (e.code) {
         case "KeyA": //left
@@ -55,7 +55,7 @@ const keys = {
 
 let scrollOffset = 0;
 
-canvas.width = 900;
+canvas.width = 1030;
 canvas.height = 500;
 
 function createImage(imageSrc) {
