@@ -31,10 +31,10 @@ window.onload = () => {
   };
 };
 
-const platform = "../docs/assets/platform.png";
-const smallPlatform = "../docs/assets/smallPlatform.png";
-const backgroundImg = "../docs/assets/Parallax-background.png";
-const mario = "../docs/assets/Mario copy.png";
+const platform = "../docs/assets/images/platform.png";
+const smallPlatform = "../docs/assets/images/smallPlatform.png";
+const backgroundImg = "../docs/assets/images/Parallax-background.png";
+const mario = "../docs/assets/images/Mario copy.png";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
