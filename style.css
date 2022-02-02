@@ -31,6 +31,10 @@ body button {
 }
 
 #win-screen {
-    height: 500px;
-    background-color: red;
+    height: 150px;
+    background-color: white;
+    color: blue;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 100px;
+    text-align:center ;
 }
