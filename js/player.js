@@ -10,16 +10,13 @@ class Player {
     };
     this.width = 70;
     this.height = 70;
-    this.image = createImage(greenChar);
+    this.image = createImage(mario);
+    this.isJumping = false
   }
 
   draw() {
     ctx.drawImage(
       this.image,
-      0,
-      0,
-      55,
-      60,
       this.position.x,
       this.position.y,
       this.width,

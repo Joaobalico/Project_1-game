@@ -1,7 +1,16 @@
+const test = document.getElementById('start-button');
+
+window.onload = () => {
+  test.onclick = () => {
+    init();
+    test.remove()
+  };
+}
+
 const platform = "../docs/assets/platform.png";
 const smallPlatform = "../docs/assets/smallPlatform.png";
 const backgroundImg = '../docs/assets/Parallax-background.png';
-const greenChar = "../docs/assets/Preview-Green-Cap-Character-16x18.png";
+const mario = "../docs/assets/Mario copy.png";
 
 
 const canvas = document.getElementById("canvas");
@@ -18,11 +27,7 @@ const keys = {
   },
   left: {
     pressed: false,
-  },
-  up: {
-    pressed: false,
-    
-  },
+  }
 };
 
 let scrollOffset = 0;
@@ -253,28 +258,30 @@ function animate() {
 init();
 animate();
 
-window.addEventListener("keydown", (e) => {
-  switch (e.code) {
-    case "KeyA": //left
-      keys.left.pressed = true;
-      break;
-    case "KeyD": //right
-      keys.right.pressed = true;
-      break;
-    case "KeyW": //up
-      player.speed.y -= 22;
-      break;
-  }
-});
-
-
-window.addEventListener("keyup", (e) => {
-  switch (e.code) {
-    case "KeyA": //left
-      keys.left.pressed = false;
-      break;
-    case "KeyD": //right
-      keys.right.pressed = false;
-      break;
-  }
-});
+if (test.onclick === true) {
+  window.addEventListener("keydown", (e) => {
+    switch (e.code) {
+      case "KeyA": //left
+        keys.left.pressed = true;
+        break;
+      case "KeyD": //right
+        keys.right.pressed = true;
+        break;
+      case "KeyW": //up
+        player.speed.y = -22;
+        break;
+    }
+  });
+  
+  
+  window.addEventListener("keyup", (e) => {
+    switch (e.code) {
+      case "KeyA": //left
+        keys.left.pressed = false;
+        break;
+      case "KeyD": //right
+        keys.right.pressed = false;
+        break;
+    }
+  })
+}
