@@ -276,8 +276,6 @@ function animate() {
     document.getElementById('win-screen').innerHTML = 'You Won!!';
     document.getElementById('canvas').remove();
     setTimeout(reload, 3000)
-    // alert("You won!");
-    // reload()
   }
 
   //Lose condition
