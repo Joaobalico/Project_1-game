@@ -1,17 +1,40 @@
-const test = document.getElementById('start-button');
+const test = document.getElementById("start-button");
 
 window.onload = () => {
   test.onclick = () => {
     init();
-    test.remove()
+    test.remove();
+    window.addEventListener("keydown", (e) => {
+      switch (e.code) {
+        case "KeyA": //left
+          keys.left.pressed = true;
+          break;
+        case "KeyD": //right
+          keys.right.pressed = true;
+          break;
+        case "KeyW": //up
+          player.speed.y = -22;
+          break;
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      switch (e.code) {
+        case "KeyA": //left
+          keys.left.pressed = false;
+          break;
+        case "KeyD": //right
+          keys.right.pressed = false;
+          break;
+      }
+    });
   };
-}
+};
 
 const platform = "../docs/assets/platform.png";
 const smallPlatform = "../docs/assets/smallPlatform.png";
-const backgroundImg = '../docs/assets/Parallax-background.png';
+const backgroundImg = "../docs/assets/Parallax-background.png";
 const mario = "../docs/assets/Mario copy.png";
-
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
@@ -27,7 +50,7 @@ const keys = {
   },
   left: {
     pressed: false,
-  }
+  },
 };
 
 let scrollOffset = 0;
@@ -121,12 +144,12 @@ function init() {
       image: platformImage,
     }),
     new Platform({
-      x: platformImage.width * 15.10,
+      x: platformImage.width * 15.1,
       y: 100,
       image: platformImage,
     }),
     new Platform({
-      x: platformImage.width * 17.60,
+      x: platformImage.width * 17.6,
       y: 150,
       image: platformImage,
     }),
@@ -245,8 +268,8 @@ function animate() {
 
   //Win condition
   if (scrollOffset > 10000) {
-    alert('You won!');
-    init();
+    alert("You won!");
+    init()
   }
 
   //Lose condition
@@ -257,31 +280,3 @@ function animate() {
 
 init();
 animate();
-
-if (test.onclick === true) {
-  window.addEventListener("keydown", (e) => {
-    switch (e.code) {
-      case "KeyA": //left
-        keys.left.pressed = true;
-        break;
-      case "KeyD": //right
-        keys.right.pressed = true;
-        break;
-      case "KeyW": //up
-        player.speed.y = -22;
-        break;
-    }
-  });
-  
-  
-  window.addEventListener("keyup", (e) => {
-    switch (e.code) {
-      case "KeyA": //left
-        keys.left.pressed = false;
-        break;
-      case "KeyD": //right
-        keys.right.pressed = false;
-        break;
-    }
-  })
-}
