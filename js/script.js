@@ -1,7 +1,7 @@
-const platform = "img/platform.png";
-const smallPlatform = "img/smallPlatform.png";
-const backgroundImg = "img/Parallax-background.png";
-const mario = "img/Mario copy.png";
+const platform = "./docs/assets/platform.png";
+const smallPlatform = "./docs/assets/smallPlatform.png";
+const backgroundImg = "./docs/assets/Parallax-background.png";
+const mario = "./docs/assets/Mario copy.png";
 
 
 const startButton = document.getElementById("start-button");
