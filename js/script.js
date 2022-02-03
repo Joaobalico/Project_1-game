@@ -1,3 +1,9 @@
+const platform = "../img/platform.png";
+const smallPlatform = "../img/smallPlatform.png";
+const backgroundImg = "../img/Parallax-background.png";
+const mario = "../img/Mario copy.png";
+
+
 const startButton = document.getElementById("start-button");
 
 window.onload = () => {
@@ -30,11 +36,6 @@ window.onload = () => {
     });
   };
 };
-
-const platform = "../docs/assets/images/platform.png";
-const smallPlatform = "../docs/assets/images/smallPlatform.png";
-const backgroundImg = "../docs/assets/images/Parallax-background.png";
-const mario = "../docs/assets/images/Mario copy.png";
 
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
