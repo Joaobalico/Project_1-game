@@ -13,7 +13,7 @@ window.onload = () => {
     window.addEventListener("keydown", (e) => {
       switch (e.code) {
         case "KeyA": //left
-          keys.left.pressed = true;
+          keys.left.pressed = false;
           break;
         case "KeyD": //right
           keys.right.pressed = true;
@@ -30,7 +30,7 @@ window.onload = () => {
           keys.left.pressed = false;
           break;
         case "KeyD": //right
-          keys.right.pressed = false;
+          keys.right.pressed = true;
           break;
       }
     });
