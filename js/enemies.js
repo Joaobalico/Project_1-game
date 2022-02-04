@@ -1,11 +1,11 @@
-/* class Enemy {
+class Enemy {
   constructor() {
-    this.speedY = 3;
+    this.speedY = 5;
     this.width = 50;
-    this.height = 50;
+    this.height = 100;
     this.x = Math.floor(Math.random() * 1030);
     this.y = 0 - this.height -100;
-    this.image = createImage(goomba);
+    this.image = createImage(fireball);
   }
 
   draw() {
@@ -17,4 +17,3 @@
       this.y += this.speedY;
   }
 }
- */

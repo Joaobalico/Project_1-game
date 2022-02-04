@@ -2,7 +2,7 @@ const platform = "./docs/assets/platform.png";
 const smallPlatform = "./docs/assets/smallPlatform.png";
 const backgroundImg = "./docs/assets/Parallax-background.png";
 const mario = "./docs/assets/Mario copy.png";
-// const goomba = "./docs/assets/goombaSquashed.b629717.png";
+const fireball = "./docs/assets/bola-de-fogo-do-clash-royale-arte-fireball.png";
 
 const startButton = document.getElementById("start-button");
 
@@ -65,14 +65,20 @@ function createImage(imageSrc) {
   return image;
 }
 
-// let enemies = [];
+let enemies = [];
 let player;
 let animatedBackground = [];
+
+function spawnEnemies() {
+  setInterval(() => {
+    enemies.push(new Enemy());
+  }, 500);
+}
 
 function init() {
   const platformImage = createImage(platform);
   player = new Player();
-  // enemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
+  enemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
 
   platforms = [
     new Platform({
@@ -210,12 +216,6 @@ function init() {
   scrollOffset = 0;
 }
 
-/* function spawnEnemies() {
-  setInterval(() => {
-    enemies.push(new Enemy());
-  }, 750);
-} */
-
 function reload() {
   init();
   location.reload();
@@ -226,8 +226,12 @@ function animate() {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+
   animatedBackground.forEach((animatedObject) => {
     animatedObject.draw();
+  });
+  enemies.forEach((enemy) => {
+    enemy.update();
   });
   platforms.forEach((platform) => {
     platform.position.x -= 5;
@@ -235,9 +239,7 @@ function animate() {
   });
   player.update();
 
-  /* enemies.forEach((enemy) => {
-    enemy.update();
-  }); */
+
 
   //PLayer movements and limits
   if (keys.right.pressed && player.position.x < 400) {
@@ -255,9 +257,9 @@ function animate() {
       platforms.forEach((platform) => {
         platform.position.x -= 10;
       });
-      /* enemies.forEach((enemy) => {
+      enemies.forEach((enemy) => {
         enemy.x -= 6;
-      }); */
+      });
       animatedBackground.forEach((animatedObject) => {
         animatedObject.position.x -= 6;
       });
@@ -267,9 +269,9 @@ function animate() {
       platforms.forEach((platform) => {
         platform.position.x += 10;
       });
-      /* enemies.forEach((enemy) => {
+      enemies.forEach((enemy) => {
         enemy.x += 6;
-      }); */
+      });
       animatedBackground.forEach((animatedObject) => {
         animatedObject.position.x += 6;
       });
@@ -305,5 +307,5 @@ function animate() {
 }
 
 init();
-// spawnEnemies();
+spawnEnemies();
 animate();
