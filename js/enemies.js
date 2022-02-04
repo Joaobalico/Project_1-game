@@ -1,6 +1,6 @@
 class Enemy {
   constructor() {
-    this.speedY = 5;
+    this.speedY = 3;
     this.width = 50;
     this.height = 100;
     this.x = Math.floor(Math.random() * 1030);
